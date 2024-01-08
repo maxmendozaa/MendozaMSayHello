@@ -1,32 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
-
-namespace MendozaMSayHello.Controllers;
+namespace say_hello_endpoint.controller;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
-{
-    private static readonly string[] Summaries = new[]
+    public class Controller: ControllerBase
     {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        public List <string> greeting = new();
+        [HttpPost]
+        [Route("Hello/{name}")]
+        public List <string> Hello(string name)
         {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            greeting.Add($"Hello, {name}");
+            return greeting;
+        }
     }
-}
+
+
+
+
+
+
+
+
+
